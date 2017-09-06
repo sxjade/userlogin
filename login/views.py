@@ -17,7 +17,7 @@ def login(request):
     print(username,group)
     if(username==''):
         result['status'] = 'error'
-        result['errmsg'] = 'empty username'
+        result['errmsg'] = 'empty username!'
         return HttpResponse(json.dumps(result))
     
     try:
