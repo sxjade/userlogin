@@ -4,6 +4,7 @@ from django.http import HttpResponse
 import json
 from datetime import datetime,timedelta
 from django.utils import timezone
+from .pages import Page
 # Create your views here.
 
 def index(request):
@@ -12,16 +13,16 @@ def index(request):
 def login(request):
     result = {}
     username = request.GET.get('username','')
-    group = request.GET.get('group','')
+    usergroup = request.GET.get('usergroup','')
     reserve = request.GET.get('reserve','')
-    print(username,group)
+    print(username,usergroup)
     if(username==''):
         result['status'] = 'error'
         result['errmsg'] = 'empty username!'
         return HttpResponse(json.dumps(result))
     
     try:
-        user = User.objects.get(username=username,group=group)
+        user = User.objects.get(username=username,usergroup=usergroup)
     except User.DoesNotExist:
         result['status'] = 'error'
         result['errmsg'] = 'username or group not exist'
@@ -55,4 +56,21 @@ def login(request):
         
     return HttpResponse(json.dumps(result))
 
-
+def showlog(request):
+    #log_list = Login_log.objects.order_by('-login_time')
+    
+    status = {}
+    current_page = request.GET.get('page','1')
+             
+    all_item = Login_log.objects.filter(**status).count()
+             
+    page_obj = Page(current_page,status)
+    log_list = Login_log.objects.filter(**status).order_by('-login_time')[page_obj.start():page_obj.end()]   # order_by('-updatetime')
+             
+    page_str,per_page,next_page,all_page,fir_page,end_page = page_obj.page_str(all_item, '/login/showlog')
+    page_list = range(1,all_page+1)
+    print page_str
+    content = {'log_list':log_list,'page_str':page_str,'per_page':per_page,'next_page':next_page,'all_page':all_page,'page_list':page_list,'fir_page':fir_page,'end_page':end_page}
+             
+    
+    return render(request, 'login/templates/login_log.html', content)

@@ -1,0 +1,62 @@
+{% load staticfiles %} 
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>show_log</title>
+	<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+	<link href="{% static 'css/bootstrap-theme.min.css' %}" rel="stylesheet">
+	<link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet">
+	<link href="{% static 'css/bootstrap-social.css' %}" rel="stylesheet">
+	<link href="{% static 'css/mystye.css' %}" rel="stylesheet">
+	<script src="{% static 'css/jquery.min.js' %}"></script>
+	<script src="{% static 'css/bootstrap.min.js' %}"></script>
+</head>
+<body>
+	<div class="row ">
+			<div class="col-xs-12 col-sm-9 col-sm-push-1">
+				<h2>用户登录记录</h2>
+				<div class="table-responsive">
+					<table class="table table-striped">
+						<tr>
+							<td>用户名</td>
+							<th>登陆日期</th>
+							
+						</tr>
+						{% if log_list %}
+						    
+							{% for log in log_list %}
+						<tr>
+							<td>{{ log.username }}</td>
+							<th>{{ log.login_time }}</th>
+							
+						</tr>
+						{% endfor %}
+						    
+						{% endif %}
+					</table>
+				</div>
+				<div class="">
+	    
+					   <span class="label label-success">{{ fir_page|safe }}</span>
+					   <span class="label label-success">{{ per_page|safe }}</span>
+					   <span class="label label-success">{{ next_page|safe }}</span>
+					   <span class="label label-success">{{ end_page|safe }}</span>
+					   <span >跳转至</span>
+					   <select onchange="pageChange(this)">
+						{% for page in page_list %}
+						<option value="{{ page }}" >{{ page }}/{{ all_page }}</option>
+						
+						
+						{% endfor %}
+						
+					   </select>
+					   <span>总数:{{ all_page }}</span>
+				</div>
+			</div>
+	</div>
+	
+</body>
+</html>
+
+
