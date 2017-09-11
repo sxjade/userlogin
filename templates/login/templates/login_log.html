@@ -9,15 +9,17 @@
 	<link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet">
 	<link href="{% static 'css/bootstrap-social.css' %}" rel="stylesheet">
 	<link href="{% static 'css/mystye.css' %}" rel="stylesheet">
-	<script src="{% static 'css/jquery.min.js' %}"></script>
-	<script src="{% static 'css/bootstrap.min.js' %}"></script>
+	<script src="{% static 'js/jquery.min.js' %}"></script>
+	<script src="{% static 'js/bootstrap.min.js' %}"></script>
 </head>
 <body>
 	<div class="row ">
-			<div class="col-xs-12 col-sm-9 col-sm-push-1">
-				<h2>用户登录记录</h2>
+			<div class="col-xs-12 col-sm-7 col-sm-push-3">
+			<div class="row ">
+				<h2 class="col-xs-8 col-xs-push-2">用户登录记录</h2>
+				</div>
 				<div class="table-responsive">
-					<table class="table table-striped">
+					<table class="table table-striped table-bordered">
 						<tr>
 							<td>用户名</td>
 							<th>登陆日期</th>
@@ -36,22 +38,17 @@
 						{% endif %}
 					</table>
 				</div>
-				<div class="">
+				<div class="col-xs-9 col-xs-push-1">
 	    
-					   <span class="label label-success">{{ fir_page|safe }}</span>
-					   <span class="label label-success">{{ per_page|safe }}</span>
-					   <span class="label label-success">{{ next_page|safe }}</span>
-					   <span class="label label-success">{{ end_page|safe }}</span>
-					   <span >跳转至</span>
-					   <select onchange="pageChange(this)">
-						{% for page in page_list %}
-						<option value="{{ page }}" >{{ page }}/{{ all_page }}</option>
+					   <span class="btn btn-sm btn-default">{{ fir_page|safe }}</span>
+					   <span class="btn btn-sm btn-default">{{ per_page|safe }}</span>
+					   <span class="btn btn-sm btn-default">{{ next_page|safe }}</span>
+					   <span class="btn btn-sm btn-default">{{ end_page|safe }}</span>
+					   
 						
-						
-						{% endfor %}
-						
-					   </select>
-					   <span>总数:{{ all_page }}</span>
+					   
+					   <span>&nbsp; 共{{ all_page }}页</span><span>&nbsp; 第{{ current_page }}页</span>
+					   <span class="btn btn-sm btn-default">&nbsp; <a href="{% url 'admin:index' %}">返回</a></span>
 				</div>
 			</div>
 	</div>

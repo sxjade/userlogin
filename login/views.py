@@ -9,6 +9,13 @@ from .pages import Page
 
 def index(request):
     return HttpResponse("login test")
+
+def loginTrueOrF(request):
+    try:
+        if request.session['username']:
+            return True
+    except:
+        return False
     
 def login(request):
     result = {}
@@ -57,7 +64,9 @@ def login(request):
     return HttpResponse(json.dumps(result))
 
 def showlog(request):
-    #log_list = Login_log.objects.order_by('-login_time')
+    
+#    if loginTrueOrF(request) == False:
+#        return render(request,'admin/base_site.html')
     
     status = {}
     current_page = request.GET.get('page','1')
@@ -70,7 +79,7 @@ def showlog(request):
     page_str,per_page,next_page,all_page,fir_page,end_page = page_obj.page_str(all_item, '/login/showlog')
     page_list = range(1,all_page+1)
     print page_str
-    content = {'log_list':log_list,'page_str':page_str,'per_page':per_page,'next_page':next_page,'all_page':all_page,'page_list':page_list,'fir_page':fir_page,'end_page':end_page}
+    content = {'log_list':log_list,'page_str':page_str,'per_page':per_page,'next_page':next_page,'all_page':all_page,'page_list':page_list,'fir_page':fir_page,'end_page':end_page,'current_page':current_page}
              
     
     return render(request, 'login/templates/login_log.html', content)
