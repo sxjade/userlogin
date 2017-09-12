@@ -4,17 +4,17 @@ from django.db import models
 
 class User(models.Model):
     username = models.CharField(max_length=30)
-    usergroup = models.CharField(max_length=30)
+    groupname = models.CharField(max_length=30)
     reserve = models.CharField(max_length=30)
     validity = models.DateTimeField()
     
     class Meta:
-        unique_together = ('username','usergroup')
+        unique_together = ('username','groupname')
         
-    primary = ('username','usergroup')
+    primary = ('username','groupname')
     
     def __unicode__(self):
-        return '%s,%s'%(self.username,self.usergroup)
+        return '%s,%s'%(self.username,self.groupname)
     
     
 class Login_log(models.Model):

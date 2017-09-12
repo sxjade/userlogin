@@ -6,6 +6,7 @@ from datetime import datetime,timedelta
 from django.utils import timezone
 from .pages import Page
 from decimal import *
+
 # Create your views here.
 
 def index(request):
@@ -21,16 +22,16 @@ def loginTrueOrF(request):
 def login(request):
     result = {}
     username = request.GET.get('username','')
-    usergroup = request.GET.get('usergroup','')
+    groupname = request.GET.get('groupname','')
     reserve = request.GET.get('reserve','')
-    print(username,usergroup)
+    print(username,groupname)
     if(username==''):
         result['status'] = 'error'
         result['errmsg'] = 'empty username!'
         return HttpResponse(json.dumps(result))
     
     try:
-        user = User.objects.get(username=username,usergroup=usergroup)
+        user = User.objects.get(username=username,groupname=groupname)
     except User.DoesNotExist:
         result['status'] = 'error'
         result['errmsg'] = 'username or group not exist'
