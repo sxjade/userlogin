@@ -1,10 +1,11 @@
 from django.shortcuts import render
-from models import User,Login_log
+from models import User,Login_log,Collect
 from django.http import HttpResponse
 import json
 from datetime import datetime,timedelta
 from django.utils import timezone
 from .pages import Page
+from decimal import *
 # Create your views here.
 
 def index(request):
@@ -83,3 +84,50 @@ def showlog(request):
              
     
     return render(request, 'login/templates/login_log.html', content)
+
+
+
+def getCollect(request):
+    result={}
+    TerminalCompany = request.GET.get('TerminalCompany','1')
+    TerminalName = request.GET.get('TerminalName','1')
+    AccountCompany = request.GET.get('AccountCompany','1')
+    AccountNumber = request.GET.get('AccountNumber','1')
+    AccountCurrency = request.GET.get('AccountCurrency','1')
+    
+    AccountLeverage = Decimal(request.GET.get('AccountLeverage','1'))
+    AccountBalance = Decimal(request.GET.get('AccountBalance','1'))
+    AccountEquity = Decimal(request.GET.get('AccountEquity','1'))
+    AccountMargin = Decimal(request.GET.get('AccountMargin','1'))
+    AccountProfit = Decimal(request.GET.get('AccountProfit','1'))
+    MarginReq = Decimal(request.GET.get('MarginReq','1'))
+    AccountFreeMargin = Decimal(request.GET.get('AccountFreeMargin','1'))
+    Spread = Decimal(request.GET.get('Spread','1'))
+    OrderCommission = Decimal(request.GET.get('OrderCommission','1'))
+    AllAmount = Decimal(request.GET.get('AllAmount','1'))
+    Profit = Decimal(request.GET.get('Profit','1'))
+    HoldProfit = Decimal(request.GET.get('HoldProfit','1'))
+    
+    this_time = datetime.utcnow().replace(tzinfo=timezone.utc)
+    try:
+        cols=Collect(TerminalCompany=TerminalCompany,TerminalName=TerminalName,AccountCompany=AccountCompany, \
+                        AccountNumber=AccountNumber,AccountCurrency=AccountCurrency, \
+                AccountLeverage=AccountLeverage,AccountBalance=AccountBalance,AccountEquity=AccountEquity, \
+                AccountMargin=AccountMargin,AccountProfit=AccountProfit, \
+                MarginReq=MarginReq,AccountFreeMargin=AccountFreeMargin,Spread=Spread, \
+                OrderCommission=OrderCommission,AllAmount=AllAmount,Profit=Profit, \
+                HoldProfit=HoldProfit,updatetime=this_time
+                )
+        cols.save()
+    except Collect.DoesNotExist:
+        result['log'] = 'error'
+        
+        return HttpResponse(json.dumps(result))
+    
+    result['status'] = 'ok'
+    return HttpResponse(json.dumps(result))
+
+
+
+
+
