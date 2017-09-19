@@ -129,6 +129,22 @@ def getCollect(request):
     return HttpResponse(json.dumps(result))
 
 
-
+def showCollect(request):
+    
+    status = {}
+    current_page = request.GET.get('page','1')
+             
+    all_item = Collect.objects.filter(**status).count()
+             
+    page_obj = Page(current_page,status)
+    collect_list = Collect.objects.filter(**status).order_by('-updatetime')[page_obj.start():page_obj.end()]   # order_by('-updatetime')
+             
+    page_str,per_page,next_page,all_page,fir_page,end_page = page_obj.page_str(all_item, '/login/showlog')
+    page_list = range(1,all_page+1)
+    print page_str
+    content = {'collect_list':collect_list,'page_str':page_str,'per_page':per_page,'next_page':next_page,'all_page':all_page,'page_list':page_list,'fir_page':fir_page,'end_page':end_page,'current_page':current_page}
+             
+    
+    return render(request, 'login/templates/get_Collect.html', content)
 
 

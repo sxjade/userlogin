@@ -11,6 +11,7 @@ urlpatterns = [
     url(r'^userlogin',views.login, name='login'), 
     url(r'^showlog',views.showlog, name='showlog'), 
     url(r'^collect',views.getCollect, name='collect'), 
+    url(r'^showcollect',views.showCollect, name='showcollect'), 
     url(r'^admin/', include(admin.site.urls)),
     
                ]
