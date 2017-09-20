@@ -8,10 +8,10 @@ class Page:
         self.status = dicts
         
     def start(self):
-        return (self.current_page-1) * 3
+        return (self.current_page-1) * 10
     
     def end(self):
-        return self.current_page * 3
+        return self.current_page * 10
     
     def getdict(self):
         dictstr = ''

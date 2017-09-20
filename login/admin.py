@@ -3,7 +3,7 @@ from .models import User, Collect, Login_log
 # Register your models here.
 
 class UserAdmin(admin.ModelAdmin):
-    fields = ['username','usergroup','reserve','validity']
+    fields = ['username','groupname','reserve','validity']
 
 class Login_logAdmin(admin.ModelAdmin):
     list_display = ('username','login_time')
