@@ -1,3 +1,10 @@
 eclipse.preferences.version=1
+encoding//login/admin.py=utf-8
+encoding//login/models.py=utf-8
 encoding//login/pages.py=utf-8
 encoding//login/urls.py=utf-8
+encoding//login/views.py=utf-8
+encoding//trade/admin.py=utf-8
+encoding//trade/models.py=utf-8
+encoding//trade/urls.py=utf-8
+encoding//trade/views.py=utf-8
