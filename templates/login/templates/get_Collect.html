@@ -1,0 +1,90 @@
+{% load staticfiles %} 
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>show_log</title>
+	<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+	<link href="{% static 'css/bootstrap-theme.min.css' %}" rel="stylesheet">
+	<link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet">
+	<link href="{% static 'css/bootstrap-social.css' %}" rel="stylesheet">
+	<link href="{% static 'css/mystye.css' %}" rel="stylesheet">
+	<script src="{% static 'js/jquery.min.js' %}"></script>
+	<script src="{% static 'js/bootstrap.min.js' %}"></script>
+</head>
+<body>
+	<div class="row ">
+			<div class="col-xs-12 col-sm-12 ">
+			<div class="row ">
+				<h2 class="col-xs-8 col-xs-push-3">收集信息表</h2>
+				</div>
+				<div class="table-responsive">
+					<table class="table table-striped table-bordered">
+						<tr>
+							<td>TerminalCompany</td>
+							<th>TerminalName</th>
+							<th>AccountCompany</th>
+							<th>AccountNumber</th>
+							<th>AccountCurrency</th>
+							<th>AccountLeverage</th>
+							<th>AccountBalance</th>
+							<th>AccountEquity</th>
+							<th>AccountMargin</th>
+							<th>AccountProfit</th>
+							<th>MarginReq</th>
+							<th>AccountFreeMargin</th>
+							<th>Spread</th>
+							<th>OrderCommission</th>
+							<th>AllAmount</th>
+							<th>Profit</th>
+							<th>HoldProfit</th>
+							<th>updatetime</th>
+
+						</tr>
+						{% if collect_list %}
+						    
+							{% for collect in collect_list %}
+						<tr>
+							<td>{{ collect.TerminalCompany }}</td>
+							<th>{{ collect.TerminalName }}</th>
+							<th>{{ collect.AccountCompany }}</th>
+							<th>{{ collect.AccountNumber }}</th>
+							<th>{{ collect.AccountCurrency }}</th>
+							<th>{{ collect.AccountLeverage }}</th>
+							<th>{{ collect.AccountBalance }}</th>
+							<th>{{ collect.AccountEquity }}</th>
+							<th>{{ collect.AccountMargin }}</th>
+							<th>{{ collect.AccountProfit }}</th>
+							<th>{{ collect.MarginReq }}</th>
+							<th>{{ collect.AccountFreeMargin }}</th>
+							<th>{{ collect.Spread }}</th>
+							<th>{{ collect.OrderCommission }}</th>
+							<th>{{ collect.AllAmount }}</th>
+							<th>{{ collect.Profit }}</th>
+							<th>{{ collect.HoldProfit }}</th>
+							<th>{{ collect.updatetime }}</th>
+						</tr>
+						{% endfor %}
+						    
+						{% endif %}
+					</table>
+				</div>
+				<div class="col-xs-9 col-xs-push-1">
+	    
+					   <span class="btn btn-sm btn-default">{{ fir_page|safe }}</span>
+					   <span class="btn btn-sm btn-default">{{ per_page|safe }}</span>
+					   <span class="btn btn-sm btn-default">{{ next_page|safe }}</span>
+					   <span class="btn btn-sm btn-default">{{ end_page|safe }}</span>
+					   
+						
+					   
+					   <span>&nbsp; 共{{ all_page }}页</span><span>&nbsp; 第{{ current_page }}页</span>
+					   <span class="btn btn-sm btn-default">&nbsp; <a href="{% url 'admin:index' %}">返回</a></span>
+				</div>
+			</div>
+	</div>
+	
+</body>
+</html>
+
+
