@@ -23,7 +23,7 @@ class Page:
         return dictstr
     
     def page_str(self,all_item,url_dir):
-        all_page,dev = divmod(all_item,3)
+        all_page,dev = divmod(all_item,10)
         
         if dev > 0 :
             all_page += 1
